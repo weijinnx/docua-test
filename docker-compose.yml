@@ -1,0 +1,38 @@
+version: '3'
+services:
+  # app container
+  api:
+    build: .
+    ports:
+      - 8080:8080
+    restart: on-failure
+    environment:
+      - RHOST=${RHOST}
+    volumes:
+      - app:/usr/src/app
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+
+  # redis container
+  redis:
+    image: redis:latest
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: ${RHOST}
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/var/lib/redis/data
+    networks:
+      - redis-net
+
+# container volumes
+volumes:
+  app:
+  redis-data:
+
+# network to communicate between containers
+networks:
+  redis-net:
+
