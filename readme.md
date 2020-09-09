@@ -1,4 +1,4 @@
-# Doc.ua (Senior/TeamLead) Test Task
+# Doc.ua Test Task
 
 Your task is to write a simple application server that prints a message at a given time in the future.
 
